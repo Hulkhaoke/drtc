@@ -1,33 +1,3 @@
-/*
- * Copyright (c) 2014, Peter Thorson. All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *     * Redistributions of source code must retain the above copyright
- *       notice, this list of conditions and the following disclaimer.
- *     * Redistributions in binary form must reproduce the above copyright
- *       notice, this list of conditions and the following disclaimer in the
- *       documentation and/or other materials provided with the distribution.
- *     * Neither the name of the WebSocket++ Project nor the
- *       names of its contributors may be used to endorse or promote products
- *       derived from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL PETER THORSON BE LIABLE FOR ANY
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
-// **NOTE:** This file is a snapshot of the WebSocket++ utility client tutorial.
-// Additional related material can be found in the tutorials/utility_client
-// directory of the WebSocket++ repository.
-
 #include <websocketpp/config/asio_no_tls_client.hpp>
 #include <websocketpp/client.hpp>
 
@@ -42,11 +12,11 @@
 
 typedef websocketpp::client<websocketpp::config::asio_client> client;
 
-class connection_metadata {
+class SignalClient {
 public:
-    typedef websocketpp::lib::shared_ptr<connection_metadata> ptr;
+    typedef websocketpp::lib::shared_ptr<SignalClient> ptr;
 
-    connection_metadata(int id, websocketpp::connection_hdl hdl, std::string uri)
+    SignalClient(int id, websocketpp::connection_hdl hdl, std::string uri)
       : m_id(id)
       , m_hdl(hdl)
       , m_status("Connecting")
@@ -113,7 +83,7 @@ public:
         // m_messages.push_back(">> " + message);
     }
 
-    friend std::ostream & operator<< (std::ostream & out, connection_metadata const & data);
+    friend std::ostream & operator<< (std::ostream & out, SignalClient const & data);
 private:
     int m_id;
     websocketpp::connection_hdl m_hdl;
@@ -124,7 +94,7 @@ private:
     std::vector<std::string> m_messages;
 };
 
-std::ostream & operator<< (std::ostream & out, connection_metadata const & data) {
+std::ostream & operator<< (std::ostream & out, SignalClient const & data) {
     out << "> URI: " << data.m_uri << "\n"
         << "> Status: " << data.m_status << "\n"
         << "> Remote Server: " << (data.m_server.empty() ? "None Specified" : data.m_server) << "\n"
@@ -184,43 +154,43 @@ public:
         }
 
         int new_id = m_next_id++;
-        connection_metadata::ptr metadata_ptr = websocketpp::lib::make_shared<connection_metadata>(new_id, con->get_handle(), uri);
+        SignalClient::ptr metadata_ptr = websocketpp::lib::make_shared<SignalClient>(new_id, con->get_handle(), uri);
         m_connection_list[new_id] = metadata_ptr;
 
         con->set_open_handler(websocketpp::lib::bind(
-            &connection_metadata::on_open,
+            &SignalClient::on_open,
             metadata_ptr,
             &m_endpoint,
             websocketpp::lib::placeholders::_1
         ));
         con->set_fail_handler(websocketpp::lib::bind(
-            &connection_metadata::on_fail,
+            &SignalClient::on_fail,
             metadata_ptr,
             &m_endpoint,
             websocketpp::lib::placeholders::_1
         ));
         con->set_close_handler(websocketpp::lib::bind(
-            &connection_metadata::on_close,
+            &SignalClient::on_close,
             metadata_ptr,
             &m_endpoint,
             websocketpp::lib::placeholders::_1
         ));
         con->set_message_handler(websocketpp::lib::bind(
-            &connection_metadata::on_message,
+            &SignalClient::on_message,
             metadata_ptr,
             websocketpp::lib::placeholders::_1,
             websocketpp::lib::placeholders::_2
         ));
 
         // con->set_ping_handler(websocketpp::lib::bind(
-        //     &connection_metadata::on_ping,
+        //     &SignalClient::on_ping,
         //     metadata_ptr,
         //     websocketpp::lib::placeholders::_1,
         //     websocketpp::lib::placeholders::_2
         // ));
 
         con->set_pong_handler(websocketpp::lib::bind(
-            &connection_metadata::on_pong,
+            &SignalClient::on_pong,
             metadata_ptr,
             websocketpp::lib::placeholders::_1,
             websocketpp::lib::placeholders::_2
@@ -229,7 +199,7 @@ public:
         con->set_pong_timeout(1000);
 
         con->set_pong_timeout_handler(websocketpp::lib::bind(
-            &connection_metadata::on_pong_timeout,
+            &SignalClient::on_pong_timeout,
             metadata_ptr,
             websocketpp::lib::placeholders::_1,
             websocketpp::lib::placeholders::_2
@@ -291,16 +261,16 @@ public:
         }
     }
 
-    connection_metadata::ptr get_metadata(int id) const {
+    SignalClient::ptr get_metadata(int id) const {
         con_list::const_iterator metadata_it = m_connection_list.find(id);
         if (metadata_it == m_connection_list.end()) {
-            return connection_metadata::ptr();
+            return SignalClient::ptr();
         } else {
             return metadata_it->second;
         }
     }
 private:
-    typedef std::map<int,connection_metadata::ptr> con_list;
+    typedef std::map<int,SignalClient::ptr> con_list;
 
     client m_endpoint;
     websocketpp::lib::shared_ptr<websocketpp::lib::thread> m_thread;
@@ -313,6 +283,8 @@ int main() {
     bool done = false;
     std::string input;
     websocket_endpoint endpoint;
+
+    std::cout << "connect ws://localhost:9002" << std::endl;
 
     while (!done) {
         std::cout << "Enter Command: ";
@@ -372,7 +344,7 @@ int main() {
         } else if (input.substr(0,4) == "show") {
             int id = atoi(input.substr(5).c_str());
 
-            connection_metadata::ptr metadata = endpoint.get_metadata(id);
+            SignalClient::ptr metadata = endpoint.get_metadata(id);
             if (metadata) {
                 std::cout << *metadata << std::endl;
             } else {

@@ -1,26 +1,26 @@
 [
 {
   "directory": "e:\\SourceCode\\drtc",
-  "arguments": ["C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe", "/c", "/nologo", "/m64", "/std:c++17", "/Ithirdparty\\websocketpp\\include", "/DTEST", "/DASIO_STANDALONE", "/D_WEBSOCKETPP_CPP11_INTERNAL_", "/DASIO_HAS_STD_TYPE_TRAITS", "/DASIO_HAS_STD_SHARED_PTR", "/DASIO_HAS_STD_ADDRESSOF", "/DASIO_HAS_STD_ATOMIC", "/DASIO_HAS_STD_CHRONO", "/DASIO_HAS_CSTDINT", "/DASIO_HAS_STD_ARRAY", "/DASIO_HAS_STD_SYSTEM_ERROR", "/EHsc", "/Fobuild\\.objs\\client\\windows\\x64\\tests\\client.cpp.obj", "tests\\client.cpp"],
-  "file": "tests\\client.cpp"
-},
-{
-  "directory": "e:\\SourceCode\\drtc",
-  "arguments": ["C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe", "/c", "/nologo", "/m64", "/std:c++17", "/Ithirdparty\\libjuice\\include", "/DTEST", "/EHsc", "/Fobuild\\.objs\\answer\\windows\\x64\\tests\\answer.cpp.obj", "tests\\answer.cpp"],
-  "file": "tests\\answer.cpp"
-},
-{
-  "directory": "e:\\SourceCode\\drtc",
-  "arguments": ["C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe", "/c", "/nologo", "/m64", "/std:c++17", "/Ithirdparty\\libjuice\\include", "/DHELLO", "/DFORCE_SHARED_CRT=OFF", "/EHsc", "/Fobuild\\.objs\\ice\\windows\\x64\\src\\ice\\ice.cpp.obj", "src\\ice\\ice.cpp"],
+  "arguments": ["C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe", "/c", "/nologo", "/O2", "/fp:fast", "/std:c++17", "/Ithirdparty\\libjuice\\include", "/DHELLO", "/DFORCE_SHARED_CRT=OFF", "/EHsc", "/DNDEBUG", "/Fobuild\\.objs\\ice\\windows\\x64\\release\\src\\ice\\ice.cpp.obj", "src\\ice\\ice.cpp"],
   "file": "src\\ice\\ice.cpp"
 },
 {
   "directory": "e:\\SourceCode\\drtc",
-  "arguments": ["C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe", "/c", "/nologo", "/m64", "/std:c++17", "/Ithirdparty\\websocketpp\\include", "/DTEST", "/DASIO_STANDALONE", "/D_WEBSOCKETPP_CPP11_INTERNAL_", "/DASIO_HAS_STD_TYPE_TRAITS", "/DASIO_HAS_STD_SHARED_PTR", "/DASIO_HAS_STD_ADDRESSOF", "/DASIO_HAS_STD_ATOMIC", "/DASIO_HAS_STD_CHRONO", "/DASIO_HAS_CSTDINT", "/DASIO_HAS_STD_ARRAY", "/DASIO_HAS_STD_SYSTEM_ERROR", "/EHsc", "/Fobuild\\.objs\\server\\windows\\x64\\tests\\server.cpp.obj", "tests\\server.cpp"],
-  "file": "tests\\server.cpp"
+  "arguments": ["C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe", "/c", "/nologo", "/O2", "/fp:fast", "/std:c++17", "/Ithirdparty\\libjuice\\include", "/DTEST", "/EHsc", "/DNDEBUG", "/Fobuild\\.objs\\answer\\windows\\x64\\release\\tests\\answer.cpp.obj", "tests\\answer.cpp"],
+  "file": "tests\\answer.cpp"
 },
 {
   "directory": "e:\\SourceCode\\drtc",
-  "arguments": ["C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe", "/c", "/nologo", "/m64", "/std:c++17", "/Ithirdparty\\libjuice\\include", "/DTEST", "/EHsc", "/Fobuild\\.objs\\offer\\windows\\x64\\tests\\offer.cpp.obj", "tests\\offer.cpp"],
+  "arguments": ["C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe", "/c", "/nologo", "/O2", "/fp:fast", "/std:c++17", "/Ithirdparty\\websocketpp\\include", "/DTEST", "/DASIO_STANDALONE", "/D_WEBSOCKETPP_CPP11_INTERNAL_", "/DASIO_HAS_STD_TYPE_TRAITS", "/DASIO_HAS_STD_SHARED_PTR", "/DASIO_HAS_STD_ADDRESSOF", "/DASIO_HAS_STD_ATOMIC", "/DASIO_HAS_STD_CHRONO", "/DASIO_HAS_CSTDINT", "/DASIO_HAS_STD_ARRAY", "/DASIO_HAS_STD_SYSTEM_ERROR", "/EHsc", "/DNDEBUG", "/Fobuild\\.objs\\signal_server\\windows\\x64\\release\\tests\\signal_server.cpp.obj", "tests\\signal_server.cpp"],
+  "file": "tests\\signal_server.cpp"
+},
+{
+  "directory": "e:\\SourceCode\\drtc",
+  "arguments": ["C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe", "/c", "/nologo", "/O2", "/fp:fast", "/std:c++17", "/Ithirdparty\\libjuice\\include", "/DTEST", "/EHsc", "/DNDEBUG", "/Fobuild\\.objs\\offer\\windows\\x64\\release\\tests\\offer.cpp.obj", "tests\\offer.cpp"],
   "file": "tests\\offer.cpp"
+},
+{
+  "directory": "e:\\SourceCode\\drtc",
+  "arguments": ["C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe", "/c", "/nologo", "/O2", "/fp:fast", "/std:c++17", "/Ithirdparty\\websocketpp\\include", "/DTEST", "/DASIO_STANDALONE", "/D_WEBSOCKETPP_CPP11_INTERNAL_", "/DASIO_HAS_STD_TYPE_TRAITS", "/DASIO_HAS_STD_SHARED_PTR", "/DASIO_HAS_STD_ADDRESSOF", "/DASIO_HAS_STD_ATOMIC", "/DASIO_HAS_STD_CHRONO", "/DASIO_HAS_CSTDINT", "/DASIO_HAS_STD_ARRAY", "/DASIO_HAS_STD_SYSTEM_ERROR", "/EHsc", "/DNDEBUG", "/Fobuild\\.objs\\signal_client\\windows\\x64\\release\\tests\\signal_client.cpp.obj", "tests\\signal_client.cpp"],
+  "file": "tests\\signal_client.cpp"
 }]
