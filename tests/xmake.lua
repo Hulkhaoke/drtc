@@ -6,19 +6,23 @@ add_defines("TEST")
 
 add_requires("asio 1.24.0")
 
+add_defines("JUICE_STATIC")
+
 target("answer")
     set_kind("binary")
     add_files("answer.cpp")
-    add_links("juice")
+    add_links("juice", "ws2_32", "Bcrypt")
+    add_cxflags("-MD")
     add_includedirs("../thirdparty/libjuice/include")
-    add_linkdirs("../thirdparty/libjuice/libshared")
+    add_linkdirs("../thirdparty/libjuice/lib")
 
 target("offer")
     set_kind("binary")
     add_files("offer.cpp")
-    add_links("juice")
+    add_links("juice", "ws2_32", "Bcrypt")
+    add_cxflags("-MD")
     add_includedirs("../thirdparty/libjuice/include")
-    add_linkdirs("../thirdparty/libjuice/libshared")
+    add_linkdirs("../thirdparty/libjuice/lib")
 
 target("signal_server")
     set_kind("binary")
