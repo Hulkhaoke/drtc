@@ -9,25 +9,26 @@ int main()
 {
     bool done = false;
     std::string input;
-    WsClient endpoint;
+    WsClient ws_client;
 
     std::cout << "connect ws://localhost:9002" << std::endl;
-    int id = endpoint.connect("ws://localhost:9002");
+    int id = ws_client.connect("ws://localhost:9002");
     if (id != -1)
     {
-        std::cout << "> Created connection with id " << id << std::endl;
+        std::cout << "Created connection with id " << id << std::endl;
     }
 
-    std::string status1 = endpoint.get_status(id);
-    // std::cout << "Connect status:" << status1 << std::end;
+    std::string status1 = ws_client.get_status(id);
 
-    Sleep(1000);
-
-    std::string status2 = endpoint.get_status(id);
-    // std::cout << "Connect status:" << status2 << std::end;
+    while("Open" != status1)
+    {
+        status1 = ws_client.get_status(id);
+    }
+    
+    std::cout << "Connect successfully!" << std::endl;
 
     std::cout << "Show conneciton[" << id << "] info" << std::endl;
-    WsEndpoint::ptr metadata = endpoint.get_metadata(id);
+    WsEndpoint::ptr metadata = ws_client.get_metadata(id);
     if (metadata)
     {
         std::cout << *metadata << std::endl;
@@ -38,15 +39,15 @@ int main()
     }
 
     std::cout << "Send message [Hello] to conneciton[" << id << "]" << std::endl;
-    endpoint.send(id, "Hello");
+    ws_client.send(id, "Hello");
 
     std::cout << "Send ping to conneciton[" << id << "]" << std::endl;
-    endpoint.ping(id);
+    ws_client.ping(id);
 
     std::cout << "Close conneciton[" << id << "]" << std::endl;
     int close_code = websocketpp::close::status::normal;
     std::string reason = "User Close";
-    endpoint.close(id, close_code, reason);
+    ws_client.close(id, close_code, reason);
 
     getchar();
     return 0;

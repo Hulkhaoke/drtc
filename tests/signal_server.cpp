@@ -10,7 +10,7 @@ public:
     SignalServer() {
          // Set logging settings
         m_endpoint.set_error_channels(websocketpp::log::elevel::all);
-        m_endpoint.set_access_channels(websocketpp::log::alevel::all ^ websocketpp::log::alevel::frame_payload);
+        m_endpoint.set_access_channels(websocketpp::log::alevel::none);
 
         // Initialize Asio
         m_endpoint.init_asio();
@@ -34,14 +34,14 @@ public:
 
     void echo_handler(websocketpp::connection_hdl hdl, server::message_ptr msg) {
         // write a new message
-        std::cout << msg->get_payload() << " " << msg->get_opcode() << std::endl;
+        std::cout << "Receive message: [ " << msg->get_payload() << " ]" << std::endl;
         // m_endpoint.send(hdl, msg->get_payload(), msg->get_opcode());
     }
 
     bool on_ping(websocketpp::connection_hdl hdl, std::string s)
     {
         /* Do something */
-        std::cout << "ping" << std::endl;
+        std::cout << "Receive ping" << std::endl;
         return true;
     }
 

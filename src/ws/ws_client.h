@@ -18,7 +18,7 @@ public:
 
     void ping(int id);
 
-    std::string get_status(int id) const;
+    std::string get_status(int id);
 
     WsEndpoint::ptr get_metadata(int id) const;
 

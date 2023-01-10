@@ -164,7 +164,7 @@ void WsClient::ping(int id)
     }
 }
 
-std::string WsClient::get_status(int id) const
+std::string WsClient::get_status(int id)
 {
     websocketpp::lib::error_code ec;
 
