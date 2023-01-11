@@ -1,3 +1,6 @@
+#ifndef _WS_CLIENT_H_ 
+#define _WS_CLIENT_H_ 
+
 #include "ws_endpoint.h"
 
 #include <map>
@@ -10,24 +13,22 @@ public:
 
     ~WsClient();
 
-    int connect(std::string const &uri);
+    int Connect(std::string const &uri);
 
-    void close(int id, websocketpp::close::status::value code, std::string reason);
+    void Close(websocketpp::close::status::value code, std::string reason);
 
-    void send(int id, std::string message);
+    void Send(std::string message);
 
-    void ping(int id);
+    void Ping();
 
-    std::string get_status(int id);
+    std::string GetStatus();
 
-    WsEndpoint::ptr get_metadata(int id) const;
+    WsEndpoint::ptr GetMetadata() const;
 
 private:
-    typedef std::map<int, WsEndpoint::ptr> con_list;
-
-    client m_endpoint;
-    websocketpp::lib::shared_ptr<websocketpp::lib::thread> m_thread;
-
-    con_list m_connection_list;
-    int m_next_id;
+    client m_endpoint_;
+    websocketpp::lib::shared_ptr<websocketpp::lib::thread> m_thread_;
+    WsEndpoint::ptr metadata_ptr_;
 };
+
+#endif
