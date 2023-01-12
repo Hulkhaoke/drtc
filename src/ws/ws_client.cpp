@@ -134,7 +134,7 @@ void WsClient::Ping()
     }
 }
 
-std::string WsClient::GetStatus()
+const std::string &WsClient::GetStatus()
 {
     return connection_status_;
 }
@@ -156,12 +156,10 @@ void WsClient::OnClose(client *c, websocketpp::connection_hdl hdl)
 
 void WsClient::OnPong(websocketpp::connection_hdl, std::string msg)
 {
-
 }
 
 void WsClient::OnPongTimeout(websocketpp::connection_hdl, std::string msg)
 {
-
 }
 
 void WsClient::OnMessage(websocketpp::connection_hdl, client::message_ptr &msg)

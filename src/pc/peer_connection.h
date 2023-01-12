@@ -6,23 +6,28 @@
 
 #include <iostream>
 
-class PeerConnection
+class PeerConnection:public WsClient
 {
 public:
     PeerConnection();
 
     ~PeerConnection();
 
-    int Init(WsClient *ws_client);
+    int Init(std::string const & uri);
 
     int GetLocalSdp();
 
     int SetRemoteSdp(const std::string &remote_sdp);
 
-    int SendOffer();
+    int SendLocalSdp();
+
+    int AddRemoteCandidate(const std::string &remote_candidate);
+
+    int CreateOffer();
+
+    void OnReceiveMessage(const std::string &msg);
 
 private:
-    WsClient *ws_client_ = nullptr;
     IceAgent ice_agent_;
     std::string local_sdp_;
     std::string remote_sdp_;

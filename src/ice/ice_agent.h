@@ -1,5 +1,5 @@
-#ifndef _ICE_AGENT_H_ 
-#define _ICE_AGENT_H_ 
+#ifndef _ICE_AGENT_H_
+#define _ICE_AGENT_H_
 
 #include "juice/juice.h"
 

@@ -1,5 +1,7 @@
 add_rules("mode.release", "mode.debug")
 
+add_requires("asio 1.24.0", "nlohmann_json")
+
 target("ice")
     set_kind("static")
     add_files("ice/*.cpp")
@@ -21,7 +23,7 @@ target("pc")
     set_kind("static")
     add_deps("ws", "ice")
     add_files("pc/*.cpp")
-    add_packages("asio")
+    add_packages("asio", "nlohmann_json")
     add_includedirs("ice", "ws")
     add_includedirs("../thirdparty/libjuice/include")
     add_includedirs("../thirdparty/websocketpp/include")

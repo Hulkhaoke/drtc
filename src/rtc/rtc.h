@@ -12,6 +12,8 @@ enum ws_status
 
 int rtc();
 
+int CreatePeerConnection(const char* uri);
+
 int CreateWsClient(const char* uri);
 
 int WsSendMsg(const char* message);

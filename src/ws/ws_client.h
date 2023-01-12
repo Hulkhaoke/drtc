@@ -28,7 +28,7 @@ public:
 
     void Ping();
 
-    std::string GetStatus();
+    const std::string &GetStatus();
 
     // Callback
     void OnOpen(client *c, websocketpp::connection_hdl hdl);
