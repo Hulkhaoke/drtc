@@ -5,30 +5,43 @@
 
 #include <iostream>
 
-static WsClient ws_client;
+class WsSender:public WsClient
+{
+public:
+    WsSender(){}
+    ~WsSender(){}
+
+    void OnReceiveMessage(const std::string &msg)
+    {
+        std::cout << "Receive msg: " << msg << std::endl;
+    }
+};
+
+static WsSender *ws_client;
 
 int rtc()
 {
+    ws_client = new WsSender();
     return 0;
 }
 
 int CreateWsClient(const char *uri)
 {
-    ws_client.Connect(uri);
+    ws_client->Connect(uri);
 
     return 0;
 }
 
 int WsSendMsg(const char *message)
 {
-    ws_client.Send(message);
+    ws_client->Send(message);
 
     return 0;
 }
 
 ws_status GetWsStatus()
 {
-    std::string ws_status = ws_client.GetStatus();
+    std::string ws_status = ws_client->GetStatus();
 
     if ("Connecting" == ws_status)
     {

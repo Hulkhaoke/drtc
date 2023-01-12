@@ -19,14 +19,14 @@ WsClient::~WsClient()
 {
     m_endpoint_.stop_perpetual();
 
-    if (metadata_ptr_->GetStatus() != "Open")
+    if (GetStatus() != "Open")
     {
         // Only close open connections
         return;
     }
 
     websocketpp::lib::error_code ec;
-    m_endpoint_.close(metadata_ptr_->GetHdl(), websocketpp::close::status::going_away, "", ec);
+    m_endpoint_.close(connection_handle_, websocketpp::close::status::going_away, "", ec);
     if (ec)
     {
         std::cout << "> Error closing connection " << ec.message() << std::endl;
@@ -41,53 +41,54 @@ int WsClient::Connect(std::string const &uri)
 
     client::connection_ptr con = m_endpoint_.get_connection(uri, ec);
 
+    connection_handle_ = con->get_handle();
+
     if (ec)
     {
         std::cout << "> Connect initialization error: " << ec.message() << std::endl;
         return -1;
     }
 
-    metadata_ptr_ = websocketpp::lib::make_shared<WsEndpoint>(con->get_handle(), uri);
-
     con->set_open_handler(websocketpp::lib::bind(
-        &WsEndpoint::OnOpen,
-        metadata_ptr_,
+        &WsClient::OnOpen,
+        this,
         &m_endpoint_,
         websocketpp::lib::placeholders::_1));
     con->set_fail_handler(websocketpp::lib::bind(
-        &WsEndpoint::OnFail,
-        metadata_ptr_,
+        &WsClient::OnFail,
+        this,
         &m_endpoint_,
         websocketpp::lib::placeholders::_1));
     con->set_close_handler(websocketpp::lib::bind(
-        &WsEndpoint::OnClose,
-        metadata_ptr_,
+        &WsClient::OnClose,
+        this,
         &m_endpoint_,
         websocketpp::lib::placeholders::_1));
-    con->set_message_handler(websocketpp::lib::bind(
-        &WsEndpoint::OnMessage,
-        metadata_ptr_,
-        websocketpp::lib::placeholders::_1,
-        websocketpp::lib::placeholders::_2));
 
     // con->set_ping_handler(websocketpp::lib::bind(
-    //     &WsEndpoint::on_ping,
-    //     metadata_ptr_,
+    //     &WsClient::on_ping,
+    //     this,
     //     websocketpp::lib::placeholders::_1,
     //     websocketpp::lib::placeholders::_2
     // ));
 
     con->set_pong_handler(websocketpp::lib::bind(
-        &WsEndpoint::OnPong,
-        metadata_ptr_,
+        &WsClient::OnPong,
+        this,
         websocketpp::lib::placeholders::_1,
         websocketpp::lib::placeholders::_2));
 
     con->set_pong_timeout(1000);
 
     con->set_pong_timeout_handler(websocketpp::lib::bind(
-        &WsEndpoint::OnPongTimeout,
-        metadata_ptr_,
+        &WsClient::OnPongTimeout,
+        this,
+        websocketpp::lib::placeholders::_1,
+        websocketpp::lib::placeholders::_2));
+
+    con->set_message_handler(websocketpp::lib::bind(
+        &WsClient::OnMessage,
+        this,
         websocketpp::lib::placeholders::_1,
         websocketpp::lib::placeholders::_2));
 
@@ -100,7 +101,7 @@ void WsClient::Close(websocketpp::close::status::value code, std::string reason)
 {
     websocketpp::lib::error_code ec;
 
-    m_endpoint_.close(metadata_ptr_->GetHdl(), code, reason, ec);
+    m_endpoint_.close(connection_handle_, code, reason, ec);
     if (ec)
     {
         std::cout << "> Error initiating close: " << ec.message() << std::endl;
@@ -111,7 +112,7 @@ void WsClient::Send(std::string message)
 {
     websocketpp::lib::error_code ec;
 
-    m_endpoint_.send(metadata_ptr_->GetHdl(), message, websocketpp::frame::opcode::text, ec);
+    m_endpoint_.send(connection_handle_, message, websocketpp::frame::opcode::text, ec);
     if (ec)
     {
         std::cout << "> Error sending message: " << ec.message() << std::endl;
@@ -125,7 +126,7 @@ void WsClient::Ping()
 
     std::string message = "ping";
 
-    m_endpoint_.ping(metadata_ptr_->GetHdl(), message, ec);
+    m_endpoint_.ping(connection_handle_, message, ec);
     if (ec)
     {
         std::cout << "> Error sending ping " << std::endl;
@@ -135,12 +136,35 @@ void WsClient::Ping()
 
 std::string WsClient::GetStatus()
 {
-    websocketpp::lib::error_code ec;
-
-    return metadata_ptr_->GetStatus();
+    return connection_status_;
 }
 
-WsEndpoint::ptr WsClient::GetMetadata() const
+void WsClient::OnOpen(client *c, websocketpp::connection_hdl hdl)
 {
-    return metadata_ptr_;
+    connection_status_ = "Open";
+}
+
+void WsClient::OnFail(client *c, websocketpp::connection_hdl hdl)
+{
+    connection_status_ = "Failed";
+}
+
+void WsClient::OnClose(client *c, websocketpp::connection_hdl hdl)
+{
+    connection_status_ = "Closed";
+}
+
+void WsClient::OnPong(websocketpp::connection_hdl, std::string msg)
+{
+
+}
+
+void WsClient::OnPongTimeout(websocketpp::connection_hdl, std::string msg)
+{
+
+}
+
+void WsClient::OnMessage(websocketpp::connection_hdl, client::message_ptr &msg)
+{
+    OnReceiveMessage(msg->get_payload());
 }

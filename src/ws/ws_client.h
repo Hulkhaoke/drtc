@@ -1,17 +1,24 @@
-#ifndef _WS_CLIENT_H_ 
-#define _WS_CLIENT_H_ 
+#ifndef _WS_CLIENT_H_
+#define _WS_CLIENT_H_
 
-#include "ws_endpoint.h"
+#include "websocketpp/config/asio_no_tls_client.hpp"
+#include "websocketpp/client.hpp"
+#include "websocketpp/common/thread.hpp"
+#include "websocketpp/common/memory.hpp"
 
+#include <string>
 #include <map>
 #include <string>
+#include <sstream>
+
+typedef websocketpp::client<websocketpp::config::asio_client> client;
 
 class WsClient
 {
 public:
     WsClient();
 
-    ~WsClient();
+    virtual ~WsClient();
 
     int Connect(std::string const &uri);
 
@@ -23,12 +30,27 @@ public:
 
     std::string GetStatus();
 
-    WsEndpoint::ptr GetMetadata() const;
+    // Callback
+    void OnOpen(client *c, websocketpp::connection_hdl hdl);
+
+    void OnFail(client *c, websocketpp::connection_hdl hdl);
+
+    void OnClose(client *c, websocketpp::connection_hdl hdl);
+
+    void OnPong(websocketpp::connection_hdl, std::string msg);
+
+    void OnPongTimeout(websocketpp::connection_hdl, std::string msg);
+
+    void OnMessage(websocketpp::connection_hdl, client::message_ptr &msg);
+
+    virtual void OnReceiveMessage(const std::string &msg) = 0;
 
 private:
     client m_endpoint_;
+    websocketpp::connection_hdl connection_handle_;
     websocketpp::lib::shared_ptr<websocketpp::lib::thread> m_thread_;
-    WsEndpoint::ptr metadata_ptr_;
+
+    std::string connection_status_ = "Connecting";
 };
 
 #endif

@@ -5,11 +5,23 @@
 #include <string>
 #include <sstream>
 
+class WsReceiver:public WsClient
+{
+public:
+    WsReceiver(){}
+    ~WsReceiver(){}
+
+    void OnReceiveMessage(const std::string &msg)
+    {
+        std::cout << "Receive msg: " << msg << std::endl;
+    }
+};
+
 int main()
 {
     bool done = false;
     std::string input;
-    WsClient ws_client;
+    WsReceiver ws_client;
 
     std::cout << "connect ws://localhost:9002" << std::endl;
     ws_client.Connect("ws://localhost:9002");
@@ -22,17 +34,6 @@ int main()
     }
     
     std::cout << "Connect successfully!" << std::endl;
-
-    std::cout << "Show conneciton info" << std::endl;
-    WsEndpoint::ptr metadata = ws_client.GetMetadata();
-    if (metadata)
-    {
-        std::cout << *metadata << std::endl;
-    }
-    else
-    {
-        std::cout << "Invalid metadata" << std::endl;
-    }
 
     std::cout << "Send message [Hello]" << std::endl;
     ws_client.Send("Hello");

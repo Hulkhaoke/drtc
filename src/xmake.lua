@@ -21,8 +21,13 @@ target("pc")
     set_kind("static")
     add_deps("ws", "ice")
     add_files("pc/*.cpp")
-    add_includedirs("ice")
+    add_packages("asio")
+    add_includedirs("ice", "ws")
     add_includedirs("../thirdparty/libjuice/include")
+    add_includedirs("../thirdparty/websocketpp/include")
+    add_defines("ASIO_STANDALONE","_WEBSOCKETPP_CPP11_INTERNAL_", "ASIO_HAS_STD_TYPE_TRAITS", "ASIO_HAS_STD_SHARED_PTR", 
+    "ASIO_HAS_STD_ADDRESSOF", "ASIO_HAS_STD_ATOMIC", "ASIO_HAS_STD_CHRONO", "ASIO_HAS_CSTDINT", "ASIO_HAS_STD_ARRAY",
+    "ASIO_HAS_STD_SYSTEM_ERROR")
 
 target("drtc")
     set_kind("shared")
