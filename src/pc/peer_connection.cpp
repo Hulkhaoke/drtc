@@ -18,16 +18,16 @@ int PeerConnection::Init(std::string const &uri)
 
     ice_agent_.CreateIceAgent(
         [](juice_agent_t *agent, juice_state_t state, void *user_ptr) {
-
+            printf("state_change: %d\n", state);
         },
         [](juice_agent_t *agent, const char *sdp, void *user_ptr) {
-
+            printf("candadite: %s\n", sdp);
         },
         [](juice_agent_t *agent, void *user_ptr) {
-
+            printf("gather_done\n");
         },
         [](juice_agent_t *agent, const char *data, size_t size, void *user_ptr) {
-
+            printf("on_recv\n");
         },
         this);
     return 0;
@@ -49,7 +49,8 @@ int PeerConnection::SendLocalSdp()
 {
     json message = {{"type", "offer"},
                     {"sdp", local_sdp_}};
-    Send(message);
+    printf("Send local sdp:%s\n", message.dump().c_str());
+    Send(message.dump());
     return 0;
 }
 

@@ -1,5 +1,5 @@
-#ifndef _ICE_AGENT_H_
-#define _ICE_AGENT_H_
+#ifndef _ICE_AGENT_H_ 
+#define _ICE_AGENT_H_ 
 
 #include "juice/juice.h"
 
@@ -37,7 +37,7 @@ public:
     int Send(const char *message);
 
 private:
-    juice_agent_t *agent_;
+    juice_agent_t *agent_ = nullptr;
     char local_sdp_[JUICE_MAX_SDP_STRING_LEN];
     juice_state_t state_;
 };

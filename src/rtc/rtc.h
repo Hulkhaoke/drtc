@@ -10,6 +10,10 @@ enum ws_status
     WS_UNKNOWN
 };
 
+#ifdef  __cplusplus
+extern "C" {
+#endif
+
 int rtc();
 
 int CreatePeerConnection(const char* uri);
@@ -19,6 +23,10 @@ int CreateWsClient(const char* uri);
 int WsSendMsg(const char* message);
 
 ws_status GetWsStatus();
+
+#ifdef  __cplusplus
+}
+#endif
 
 
 #endif

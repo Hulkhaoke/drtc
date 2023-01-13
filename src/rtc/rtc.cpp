@@ -33,9 +33,13 @@ int CreatePeerConnection(const char *uri)
 
     do
     {
-    } while ("Open" == peer_connection->GetStatus());
+    } while ("Open" != peer_connection->GetStatus());
 
+    printf("Ws status:%s\n", peer_connection->GetStatus().c_str());
+    
     peer_connection->CreateOffer();
+
+    return 0;
 }
 
 int CreateWsClient(const char *uri)

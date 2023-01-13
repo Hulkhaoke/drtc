@@ -18,6 +18,8 @@ int IceAgent::CreateIceAgent(
 	juice_cb_recv_t on_recv,
 	void *user_ptr)
 {
+	// juice_set_log_level(JUICE_LOG_LEVEL_DEBUG);
+
 	juice_config_t config;
 	memset(&config, 0, sizeof(config));
 
@@ -45,6 +47,12 @@ int IceAgent::DestoryIceAgent()
 
 char *IceAgent::GenerateLocalSdp()
 {
+	if(nullptr == agent_)
+	{
+		printf("agent_ is nullptr\n");
+		return nullptr;
+	}
+	
 	printf("GenerateLocalSdp\n");
 	juice_get_local_description(agent_, local_sdp_, JUICE_MAX_SDP_STRING_LEN);
 	printf("Local description :\n%s\n", local_sdp_);
