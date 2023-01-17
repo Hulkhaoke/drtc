@@ -5,7 +5,7 @@
 
 #include <iostream>
 
-class WsSender : public WsClient
+class WsSender : public WsCore
 {
 public:
     WsSender() {}
@@ -23,6 +23,12 @@ static PeerConnection *peer_connection;
 int rtc()
 {
     ws_client = new WsSender();
+    return 0;
+}
+
+int ConnectToServer(const char *uri)
+{
+
     return 0;
 }
 

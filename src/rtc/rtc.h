@@ -16,6 +16,10 @@ extern "C" {
 
 int rtc();
 
+int ConnectToServer(const char *uri);
+
+int RegisterPeer();
+
 int CreatePeerConnection(const char* uri);
 
 int CreateWsClient(const char* uri);

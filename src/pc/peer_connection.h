@@ -6,7 +6,7 @@
 
 #include <iostream>
 
-class PeerConnection:public WsClient
+class PeerConnection:public WsCore
 {
 public:
     PeerConnection();

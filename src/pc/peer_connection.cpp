@@ -47,8 +47,8 @@ int PeerConnection::SetRemoteSdp(const std::string &remote_sdp)
 
 int PeerConnection::SendLocalSdp()
 {
-    json message = {{"type", "offer"},
-                    {"sdp", local_sdp_}};
+    json message = {{"sdp", local_sdp_},
+                    {"type", "offer"}};
     printf("Send local sdp:%s\n", message.dump().c_str());
     Send(message.dump());
     return 0;
