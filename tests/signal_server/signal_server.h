@@ -5,7 +5,7 @@
 #include <websocketpp/server.hpp>
 
 #include <functional>
-#include "message_proc.h"
+#include <map>
 
 typedef websocketpp::server<websocketpp::config::asio> server;
 
@@ -13,6 +13,10 @@ class SignalServer {
 public:
     SignalServer();
     ~SignalServer();
+
+    bool on_open(websocketpp::connection_hdl hdl);
+
+    bool on_close(websocketpp::connection_hdl hdl);
 
     bool on_ping(websocketpp::connection_hdl hdl, std::string s);
 
@@ -23,8 +27,10 @@ public:
     void on_message(websocketpp::connection_hdl hdl, server::message_ptr msg);
 
 private:
-    server m_endpoint_;
-    MessageProc message_proc_;
+    server server_;
+    std::map<websocketpp::connection_hdl, unsigned int,
+        std::owner_less<websocketpp::connection_hdl>> connections_;
+    unsigned int connection_id_ = 0;
 };
 
 #endif

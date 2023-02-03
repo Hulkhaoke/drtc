@@ -1,5 +1,5 @@
 #include "peer_connection.h"
-
+#include "log.h"
 #include <nlohmann/json.hpp>
 
 using nlohmann::json;
@@ -50,6 +50,9 @@ int PeerConnection::SendLocalSdp()
     json message = {{"sdp", local_sdp_},
                     {"type", "offer"}};
     printf("Send local sdp:%s\n", message.dump().c_str());
+
+    SPDLOG_INFO_FILE("Send local sdp: {}\n", message.dump().c_str());
+
     Send(message.dump());
     return 0;
 }
@@ -71,5 +74,5 @@ int PeerConnection::CreateOffer()
 
 void PeerConnection::OnReceiveMessage(const std::string &msg)
 {
-    std::cout << "Receive msg: " << msg << std::endl;
+    std::cout << "Receive msg 1: " << msg << std::endl;
 }

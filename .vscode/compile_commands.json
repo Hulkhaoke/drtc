@@ -1,17 +1,32 @@
 [
 {
   "directory": "e:\\SourceCode\\drtc",
-  "arguments": ["C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe", "/c", "/nologo", "/O2", "/fp:fast", "/std:c++17", "/Ithirdparty\\websocketpp\\include", "/DJUICE_STATIC", "/DASIO_STANDALONE", "/D_WEBSOCKETPP_CPP11_INTERNAL_", "/DASIO_HAS_STD_TYPE_TRAITS", "/DASIO_HAS_STD_SHARED_PTR", "/DASIO_HAS_STD_ADDRESSOF", "/DASIO_HAS_STD_ATOMIC", "/DASIO_HAS_STD_CHRONO", "/DASIO_HAS_CSTDINT", "/DASIO_HAS_STD_ARRAY", "/DASIO_HAS_STD_SYSTEM_ERROR", "/EHsc", "/MD", "/DNDEBUG", "/Fobuild\\.objs\\ws\\windows\\x64\\release\\src\\ws\\ws_client.cpp.obj", "src\\ws\\ws_client.cpp"],
+  "arguments": ["C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe", "/c", "/nologo", "/O2", "/fp:fast", "/std:c++17", "/Ithirdparty\\websocketpp\\include", "/Isrc\\log", "/DJUICE_STATIC", "/DASIO_STANDALONE", "/D_WEBSOCKETPP_CPP11_INTERNAL_", "/DASIO_HAS_STD_TYPE_TRAITS", "/DASIO_HAS_STD_SHARED_PTR", "/DASIO_HAS_STD_ADDRESSOF", "/DASIO_HAS_STD_ATOMIC", "/DASIO_HAS_STD_CHRONO", "/DASIO_HAS_CSTDINT", "/DASIO_HAS_STD_ARRAY", "/DASIO_HAS_STD_SYSTEM_ERROR", "/EHsc", "/MD", "/DNDEBUG", "/Fobuild\\.objs\\ws\\windows\\x64\\release\\src\\ws\\ws_client.cpp.obj", "src\\ws\\ws_client.cpp"],
   "file": "src\\ws\\ws_client.cpp"
 },
 {
   "directory": "e:\\SourceCode\\drtc",
-  "arguments": ["C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe", "/c", "/nologo", "/O2", "/fp:fast", "/std:c++17", "/Isrc\\ws", "/Isrc\\ice", "/Ithirdparty\\websocketpp\\include", "/Ithirdparty\\libjuice\\include", "/DJUICE_STATIC", "/DASIO_STANDALONE", "/D_WEBSOCKETPP_CPP11_INTERNAL_", "/DASIO_HAS_STD_TYPE_TRAITS", "/DASIO_HAS_STD_SHARED_PTR", "/DASIO_HAS_STD_ADDRESSOF", "/DASIO_HAS_STD_ATOMIC", "/DASIO_HAS_STD_CHRONO", "/DASIO_HAS_CSTDINT", "/DASIO_HAS_STD_ARRAY", "/DASIO_HAS_STD_SYSTEM_ERROR", "/EHsc", "/MD", "/DNDEBUG", "/Fobuild\\.objs\\pc\\windows\\x64\\release\\src\\pc\\peer_connection.cpp.obj", "src\\pc\\peer_connection.cpp"],
+  "arguments": ["C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe", "/c", "/nologo", "/O2", "/fp:fast", "/std:c++17", "/Ithirdparty\\websocketpp\\include", "/Isrc\\log", "/DJUICE_STATIC", "/DASIO_STANDALONE", "/D_WEBSOCKETPP_CPP11_INTERNAL_", "/DASIO_HAS_STD_TYPE_TRAITS", "/DASIO_HAS_STD_SHARED_PTR", "/DASIO_HAS_STD_ADDRESSOF", "/DASIO_HAS_STD_ATOMIC", "/DASIO_HAS_STD_CHRONO", "/DASIO_HAS_CSTDINT", "/DASIO_HAS_STD_ARRAY", "/DASIO_HAS_STD_SYSTEM_ERROR", "/EHsc", "/MD", "/DNDEBUG", "/Fobuild\\.objs\\ws\\windows\\x64\\release\\src\\ws\\ws_core.cpp.obj", "src\\ws\\ws_core.cpp"],
+  "file": "src\\ws\\ws_core.cpp"
+},
+{
+  "directory": "e:\\SourceCode\\drtc",
+  "arguments": ["C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe", "/c", "/nologo", "/O2", "/fp:fast", "/std:c++17", "/Isrc\\rtc", "/Isrc\\ice", "/Isrc\\ws", "/Isrc\\pc", "/Isrc\\log", "/Ithirdparty\\libjuice\\include", "/Ithirdparty\\websocketpp\\include", "/DJUICE_STATIC", "/DASIO_STANDALONE", "/D_WEBSOCKETPP_CPP11_INTERNAL_", "/DASIO_HAS_STD_TYPE_TRAITS", "/DASIO_HAS_STD_SHARED_PTR", "/DASIO_HAS_STD_ADDRESSOF", "/DASIO_HAS_STD_ATOMIC", "/DASIO_HAS_STD_CHRONO", "/DASIO_HAS_CSTDINT", "/DASIO_HAS_STD_ARRAY", "/DASIO_HAS_STD_SYSTEM_ERROR", "/EHsc", "/MD", "/DNDEBUG", "/Fobuild\\.objs\\drtc\\windows\\x64\\release\\src\\rtc\\rtc.cpp.obj", "src\\rtc\\rtc.cpp"],
+  "file": "src\\rtc\\rtc.cpp"
+},
+{
+  "directory": "e:\\SourceCode\\drtc",
+  "arguments": ["C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe", "/c", "/nologo", "/O2", "/fp:fast", "/std:c++17", "/Ithirdparty\\libjuice\\include", "/Isrc\\log", "/DJUICE_STATIC", "/DASIO_STANDALONE", "/D_WEBSOCKETPP_CPP11_INTERNAL_", "/DASIO_HAS_STD_TYPE_TRAITS", "/DASIO_HAS_STD_SHARED_PTR", "/DASIO_HAS_STD_ADDRESSOF", "/DASIO_HAS_STD_ATOMIC", "/DASIO_HAS_STD_CHRONO", "/DASIO_HAS_CSTDINT", "/DASIO_HAS_STD_ARRAY", "/DASIO_HAS_STD_SYSTEM_ERROR", "/EHsc", "/MD", "/DNDEBUG", "/Fobuild\\.objs\\ice\\windows\\x64\\release\\src\\ice\\ice_agent.cpp.obj", "src\\ice\\ice_agent.cpp"],
+  "file": "src\\ice\\ice_agent.cpp"
+},
+{
+  "directory": "e:\\SourceCode\\drtc",
+  "arguments": ["C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe", "/c", "/nologo", "/O2", "/fp:fast", "/std:c++17", "/Isrc\\ws", "/Isrc\\ice", "/Isrc\\log", "/Ithirdparty\\websocketpp\\include", "/Ithirdparty\\libjuice\\include", "/DJUICE_STATIC", "/DASIO_STANDALONE", "/D_WEBSOCKETPP_CPP11_INTERNAL_", "/DASIO_HAS_STD_TYPE_TRAITS", "/DASIO_HAS_STD_SHARED_PTR", "/DASIO_HAS_STD_ADDRESSOF", "/DASIO_HAS_STD_ATOMIC", "/DASIO_HAS_STD_CHRONO", "/DASIO_HAS_CSTDINT", "/DASIO_HAS_STD_ARRAY", "/DASIO_HAS_STD_SYSTEM_ERROR", "/EHsc", "/MD", "/DNDEBUG", "/Fobuild\\.objs\\pc\\windows\\x64\\release\\src\\pc\\peer_connection.cpp.obj", "src\\pc\\peer_connection.cpp"],
   "file": "src\\pc\\peer_connection.cpp"
 },
 {
   "directory": "e:\\SourceCode\\drtc",
-  "arguments": ["C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe", "/c", "/nologo", "/O2", "/fp:fast", "/std:c++17", "/Isrc\\rtc", "/Ithirdparty\\libjuice\\include", "/Ithirdparty\\websocketpp\\include", "/DJUICE_STATIC", "/DASIO_STANDALONE", "/D_WEBSOCKETPP_CPP11_INTERNAL_", "/DASIO_HAS_STD_TYPE_TRAITS", "/DASIO_HAS_STD_SHARED_PTR", "/DASIO_HAS_STD_ADDRESSOF", "/DASIO_HAS_STD_ATOMIC", "/DASIO_HAS_STD_CHRONO", "/DASIO_HAS_CSTDINT", "/DASIO_HAS_STD_ARRAY", "/DASIO_HAS_STD_SYSTEM_ERROR", "/EHsc", "/DNDEBUG", "/Fobuild\\.objs\\peerconnection\\windows\\x64\\release\\tests\\peerconnection\\main.cpp.obj", "tests\\peerconnection\\main.cpp"],
+  "arguments": ["C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe", "/c", "/nologo", "/O2", "/fp:fast", "/std:c++17", "/Isrc\\rtc", "/Isrc\\log", "/Ithirdparty\\libjuice\\include", "/Ithirdparty\\websocketpp\\include", "/DJUICE_STATIC", "/DASIO_STANDALONE", "/D_WEBSOCKETPP_CPP11_INTERNAL_", "/DASIO_HAS_STD_TYPE_TRAITS", "/DASIO_HAS_STD_SHARED_PTR", "/DASIO_HAS_STD_ADDRESSOF", "/DASIO_HAS_STD_ATOMIC", "/DASIO_HAS_STD_CHRONO", "/DASIO_HAS_CSTDINT", "/DASIO_HAS_STD_ARRAY", "/DASIO_HAS_STD_SYSTEM_ERROR", "/EHsc", "/DNDEBUG", "/Fobuild\\.objs\\peerconnection\\windows\\x64\\release\\tests\\peerconnection\\main.cpp.obj", "tests\\peerconnection\\main.cpp"],
   "file": "tests\\peerconnection\\main.cpp"
 },
 {
@@ -21,21 +36,6 @@
 },
 {
   "directory": "e:\\SourceCode\\drtc",
-  "arguments": ["C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe", "/c", "/nologo", "/O2", "/fp:fast", "/std:c++17", "/Ithirdparty\\websocketpp\\include", "/DJUICE_STATIC", "/DASIO_STANDALONE", "/D_WEBSOCKETPP_CPP11_INTERNAL_", "/DASIO_HAS_STD_TYPE_TRAITS", "/DASIO_HAS_STD_SHARED_PTR", "/DASIO_HAS_STD_ADDRESSOF", "/DASIO_HAS_STD_ATOMIC", "/DASIO_HAS_STD_CHRONO", "/DASIO_HAS_CSTDINT", "/DASIO_HAS_STD_ARRAY", "/DASIO_HAS_STD_SYSTEM_ERROR", "/EHsc", "/DNDEBUG", "/Fobuild\\.objs\\signal_server\\windows\\x64\\release\\tests\\signal_server\\message_proc.cpp.obj", "tests\\signal_server\\message_proc.cpp"],
-  "file": "tests\\signal_server\\message_proc.cpp"
-},
-{
-  "directory": "e:\\SourceCode\\drtc",
   "arguments": ["C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe", "/c", "/nologo", "/O2", "/fp:fast", "/std:c++17", "/Ithirdparty\\websocketpp\\include", "/DJUICE_STATIC", "/DASIO_STANDALONE", "/D_WEBSOCKETPP_CPP11_INTERNAL_", "/DASIO_HAS_STD_TYPE_TRAITS", "/DASIO_HAS_STD_SHARED_PTR", "/DASIO_HAS_STD_ADDRESSOF", "/DASIO_HAS_STD_ATOMIC", "/DASIO_HAS_STD_CHRONO", "/DASIO_HAS_CSTDINT", "/DASIO_HAS_STD_ARRAY", "/DASIO_HAS_STD_SYSTEM_ERROR", "/EHsc", "/DNDEBUG", "/Fobuild\\.objs\\signal_server\\windows\\x64\\release\\tests\\signal_server\\signal_server.cpp.obj", "tests\\signal_server\\signal_server.cpp"],
   "file": "tests\\signal_server\\signal_server.cpp"
-},
-{
-  "directory": "e:\\SourceCode\\drtc",
-  "arguments": ["C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe", "/c", "/nologo", "/O2", "/fp:fast", "/std:c++17", "/Isrc\\rtc", "/Isrc\\ice", "/Isrc\\ws", "/Isrc\\pc", "/Ithirdparty\\libjuice\\include", "/Ithirdparty\\websocketpp\\include", "/DJUICE_STATIC", "/DASIO_STANDALONE", "/D_WEBSOCKETPP_CPP11_INTERNAL_", "/DASIO_HAS_STD_TYPE_TRAITS", "/DASIO_HAS_STD_SHARED_PTR", "/DASIO_HAS_STD_ADDRESSOF", "/DASIO_HAS_STD_ATOMIC", "/DASIO_HAS_STD_CHRONO", "/DASIO_HAS_CSTDINT", "/DASIO_HAS_STD_ARRAY", "/DASIO_HAS_STD_SYSTEM_ERROR", "/EHsc", "/MD", "/DNDEBUG", "/Fobuild\\.objs\\drtc\\windows\\x64\\release\\src\\rtc\\rtc.cpp.obj", "src\\rtc\\rtc.cpp"],
-  "file": "src\\rtc\\rtc.cpp"
-},
-{
-  "directory": "e:\\SourceCode\\drtc",
-  "arguments": ["C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe", "/c", "/nologo", "/O2", "/fp:fast", "/std:c++17", "/Ithirdparty\\libjuice\\include", "/DJUICE_STATIC", "/DASIO_STANDALONE", "/D_WEBSOCKETPP_CPP11_INTERNAL_", "/DASIO_HAS_STD_TYPE_TRAITS", "/DASIO_HAS_STD_SHARED_PTR", "/DASIO_HAS_STD_ADDRESSOF", "/DASIO_HAS_STD_ATOMIC", "/DASIO_HAS_STD_CHRONO", "/DASIO_HAS_CSTDINT", "/DASIO_HAS_STD_ARRAY", "/DASIO_HAS_STD_SYSTEM_ERROR", "/EHsc", "/MD", "/DNDEBUG", "/Fobuild\\.objs\\ice\\windows\\x64\\release\\src\\ice\\ice_agent.cpp.obj", "src\\ice\\ice_agent.cpp"],
-  "file": "src\\ice\\ice_agent.cpp"
 }]

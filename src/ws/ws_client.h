@@ -6,8 +6,8 @@
 class WsClient: public WsCore
 {
 public:
-    WsClient() {}
-    ~WsClient() {}
+    WsClient();
+    ~WsClient();
 
     void OnReceiveMessage(const std::string &msg);
 };
