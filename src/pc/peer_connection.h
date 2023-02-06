@@ -1,19 +1,28 @@
-#ifndef _PEER_CONNECTION_H_ 
-#define _PEER_CONNECTION_H_ 
+#ifndef _PEER_CONNECTION_H_
+#define _PEER_CONNECTION_H_
 
 #include "ice_agent.h"
 #include "ws_client.h"
 
 #include <iostream>
 
-class PeerConnection:public WsCore
+enum SignalStatus
+{
+    Connecting = 0,
+    Connected,
+    Closed
+};
+
+class PeerConnection : public WsCore
 {
 public:
     PeerConnection();
 
     ~PeerConnection();
 
-    int Init(std::string const & uri);
+    int Init(std::string const &uri);
+
+    int CreateTransport();
 
     int GetLocalSdp();
 
@@ -33,6 +42,8 @@ private:
     std::string remote_sdp_;
     std::string local_candidates_;
     std::string remote_candidates_;
+    unsigned int connection_id_ = 0;
+    SignalStatus signal_status_;
 };
 
 #endif

@@ -3,8 +3,11 @@
 #include "ws_client.h"
 #include "peer_connection.h"
 #include "log.h"
+#include <nlohmann/json.hpp>
 
 #include <iostream>
+
+using nlohmann::json;
 
 class WsSender : public WsCore
 {
@@ -27,13 +30,7 @@ int rtc()
     return 0;
 }
 
-int ConnectToServer(const char *uri)
-{
-
-    return 0;
-}
-
-int CreatePeerConnection(const char *uri)
+int ConnectSignalServer(const char* uri)
 {
     peer_connection = new PeerConnection();
     peer_connection->Init(uri);
@@ -43,7 +40,15 @@ int CreatePeerConnection(const char *uri)
     } while ("Open" != peer_connection->GetStatus());
 
     LOG_INFO("Ws status: {}", peer_connection->GetStatus().c_str());
-    
+
+    return 0;
+}
+
+int CreatePeerConnection(const char *uri)
+{
+    ConnectSignalServer(uri);
+
+    peer_connection->CreateTransport();
     peer_connection->CreateOffer();
 
     return 0;

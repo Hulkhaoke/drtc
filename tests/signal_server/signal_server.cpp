@@ -4,6 +4,23 @@
 
 using nlohmann::json;
 
+static const std::map<std::string, unsigned int> siganl_types{
+    {"create_transport", 1},
+    {"offer", 2}};
+
+std::string gen_random_6() {
+    static const char alphanum[] =
+        "0123456789";
+    std::string tmp_s;
+    tmp_s.reserve(6);
+
+    for (int i = 0; i < 6; ++i) {
+        tmp_s += alphanum[rand() % (sizeof(alphanum) - 1)];
+    }
+    
+    return tmp_s;
+}
+
 SignalServer::SignalServer()
 {
     // Set logging settings
@@ -43,6 +60,13 @@ bool SignalServer::on_open(websocketpp::connection_hdl hdl)
 {
     connections_[hdl] = connection_id_;
     LOG_INFO("New connection [{}] established", connection_id_++);
+
+    json message = {
+        {"type", "connection_id"},
+        {"connection_id", connection_id_}
+    };
+    server_.send(hdl, message.dump(), websocketpp::frame::opcode::text);
+
     return true;
 }
 
@@ -82,14 +106,27 @@ void SignalServer::run()
 void SignalServer::on_message(websocketpp::connection_hdl hdl, server::message_ptr msg)
 {
     std::string payload = msg->get_payload();
-    LOG_INFO("Receive message: [{}]", payload);
+
     auto j = json::parse(payload);
 
     std::string type = j["type"];
-
-    if("offer" == type)
+    auto itr = siganl_types.find(type);
+    if (itr != siganl_types.end())
     {
-        server_.send(hdl, msg->get_payload(), msg->get_opcode());
+        LOG_INFO("msg type :{}", itr->second);
+        switch (itr->second)
+        {
+        case 1:
+            transport_id_ = gen_random_6();
+            LOG_INFO("Generate transport_id [{}]", transport_id_);
+            break;
+        case 2:
+            // server_.send(hdl, msg->get_payload(), msg->get_opcode());
+            // LOG_INFO("Message body:\n{}", sdp);
+            break;
+        default:
+            break;
+        }
     }
     
     // std::string sdp = j["sdp"];

@@ -6,8 +6,11 @@
 
 #include <functional>
 #include <map>
+#include <string>
 
 typedef websocketpp::server<websocketpp::config::asio> server;
+typedef unsigned int connection_id;
+typedef std::string room_id;
 
 class SignalServer {
 public:
@@ -28,9 +31,12 @@ public:
 
 private:
     server server_;
-    std::map<websocketpp::connection_hdl, unsigned int,
+    std::map<websocketpp::connection_hdl, connection_id,
         std::owner_less<websocketpp::connection_hdl>> connections_;
+    std::map<room_id, connection_id> rooms_;
     unsigned int connection_id_ = 0;
+    std::string transport_id_ = "000000";
 };
+
 
 #endif

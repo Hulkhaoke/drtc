@@ -20,6 +20,8 @@ int ConnectToServer(const char *uri);
 
 int RegisterPeer();
 
+int ConnectSignalServer(const char* uri);
+
 int CreatePeerConnection(const char* uri);
 
 int CreateWsClient(const char* uri);

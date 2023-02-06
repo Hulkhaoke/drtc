@@ -48,6 +48,7 @@ constexpr auto LOGGER_NAME = "rtc";
         sinks.push_back(std::make_shared<spdlog::sinks::stdout_color_sink_mt>());                         \
         sinks.push_back(std::make_shared<spdlog::sinks::rotating_file_sink_mt>(path, 1048576*5, 3));      \
         auto combined_logger = std::make_shared<spdlog::logger>(LOGGER_NAME, begin(sinks), end(sinks));   \
+        combined_logger->flush_on(spdlog::level::info); \
         spdlog::register_logger(combined_logger);                                                         \
         SPDLOG_LOGGER_INFO(combined_logger, __VA_ARGS__);                                                 \
     }                                                                                                     \
