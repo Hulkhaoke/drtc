@@ -8,6 +8,7 @@
 
 #include "ice_agent.h"
 #include "juice/juice.h"
+#include "log.h"
 
 #include <stdbool.h>
 #include <stdint.h>
@@ -108,12 +109,12 @@ int main()
 
 	if (success)
 	{
-		printf("Success\n");
+		LOG_INFO("Success");
 		return 0;
 	}
 	else
 	{
-		printf("Failure\n");
+		LOG_INFO("Failure");
 		return -1;
 	}
 }
@@ -121,7 +122,7 @@ int main()
 // Agent 1: on state changed
 static void on_state_changed1(juice_agent_t *agent, juice_state_t state, void *user_ptr)
 {
-	printf("State 1: %s\n", juice_state_to_string(state));
+	LOG_INFO("State 1: {}", juice_state_to_string(state));
 
 	if (state == JUICE_STATE_CONNECTED)
 	{
@@ -134,7 +135,7 @@ static void on_state_changed1(juice_agent_t *agent, juice_state_t state, void *u
 // Agent 2: on state changed
 static void on_state_changed2(juice_agent_t *agent, juice_state_t state, void *user_ptr)
 {
-	printf("State 2: %s\n", juice_state_to_string(state));
+	LOG_INFO("State 2: {}", juice_state_to_string(state));
 	if (state == JUICE_STATE_CONNECTED)
 	{
 		// Agent 2: on connected, send a message
@@ -146,7 +147,7 @@ static void on_state_changed2(juice_agent_t *agent, juice_state_t state, void *u
 // Agent 1: on local candidate gathered
 static void on_candidate1(juice_agent_t *agent, const char *sdp, void *user_ptr)
 {
-	printf("Candidate 1: %s\n", sdp);
+	LOG_INFO("Candidate 1: {}", sdp);
 
 	// Agent 2: Receive it from agent 1
 	ice_agent2.AddRemoteCandidates(sdp);
@@ -155,7 +156,7 @@ static void on_candidate1(juice_agent_t *agent, const char *sdp, void *user_ptr)
 // Agent 2: on local candidate gathered
 static void on_candidate2(juice_agent_t *agent, const char *sdp, void *user_ptr)
 {
-	printf("Candidate 2: %s\n", sdp);
+	LOG_INFO("Candidate 2: {}", sdp);
 
 	// Agent 1: Receive it from agent 2
 	ice_agent1.AddRemoteCandidates(sdp);
@@ -164,14 +165,14 @@ static void on_candidate2(juice_agent_t *agent, const char *sdp, void *user_ptr)
 // Agent 1: on local candidates gathering done
 static void on_gathering_done1(juice_agent_t *agent, void *user_ptr)
 {
-	printf("Gathering done 1\n");
+	LOG_INFO("Gathering done 1");
 	ice_agent2.SetRemoteGatheringDone(); // optional
 }
 
 // Agent 2: on local candidates gathering done
 static void on_gathering_done2(juice_agent_t *agent, void *user_ptr)
 {
-	printf("Gathering done 2\n");
+	LOG_INFO("Gathering done 2");
 	ice_agent1.SetRemoteGatheringDone(); // optional
 }
 
@@ -183,7 +184,7 @@ static void on_recv1(juice_agent_t *agent, const char *data, size_t size, void *
 		size = BUFFER_SIZE - 1;
 	memcpy(buffer, data, size);
 	buffer[size] = '\0';
-	printf("Received 1: %s\n", buffer);
+	LOG_INFO("Received 1: {}", buffer);
 }
 
 // Agent 2: on message received
@@ -194,5 +195,5 @@ static void on_recv2(juice_agent_t *agent, const char *data, size_t size, void *
 		size = BUFFER_SIZE - 1;
 	memcpy(buffer, data, size);
 	buffer[size] = '\0';
-	printf("Received 2: %s\n", buffer);
+	LOG_INFO("Received 2: {}", buffer);
 }

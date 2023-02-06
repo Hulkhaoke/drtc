@@ -18,16 +18,16 @@ int PeerConnection::Init(std::string const &uri)
 
     ice_agent_.CreateIceAgent(
         [](juice_agent_t *agent, juice_state_t state, void *user_ptr) {
-            printf("state_change: %d\n", state);
+            LOG_INFO("state_change: {}", state);
         },
         [](juice_agent_t *agent, const char *sdp, void *user_ptr) {
-            printf("candadite: %s\n", sdp);
+            LOG_INFO("candadite: {}", sdp);
         },
         [](juice_agent_t *agent, void *user_ptr) {
-            printf("gather_done\n");
+            LOG_INFO("gather_done");
         },
         [](juice_agent_t *agent, const char *data, size_t size, void *user_ptr) {
-            printf("on_recv\n");
+            LOG_INFO("on_recv");
         },
         this);
     return 0;
@@ -49,9 +49,7 @@ int PeerConnection::SendLocalSdp()
 {
     json message = {{"sdp", local_sdp_},
                     {"type", "offer"}};
-    printf("Send local sdp:%s\n", message.dump().c_str());
-
-    SPDLOG_INFO_FILE("Send local sdp: {}\n", message.dump().c_str());
+    LOG_INFO("Send local sdp:\n{}", message.dump().c_str());
 
     Send(message.dump());
     return 0;
@@ -74,5 +72,5 @@ int PeerConnection::CreateOffer()
 
 void PeerConnection::OnReceiveMessage(const std::string &msg)
 {
-    std::cout << "Receive msg 1: " << msg << std::endl;
+    LOG_INFO("Receive msg 1: {}", msg);
 }

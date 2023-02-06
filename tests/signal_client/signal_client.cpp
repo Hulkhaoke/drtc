@@ -13,7 +13,7 @@ public:
 
     void OnReceiveMessage(const std::string &msg)
     {
-        std::cout << "Receive msg: " << msg << std::endl;
+        LOG_INFO("Receive msg: {}", msg);
     }
 };
 
@@ -23,7 +23,7 @@ int main()
     std::string input;
     WsReceiver ws_client;
 
-    std::cout << "connect ws://localhost:9002" << std::endl;
+    LOG_INFO("connect ws://localhost:9002");
     ws_client.Connect("ws://localhost:9002");
 
     std::string status1 = ws_client.GetStatus();
@@ -33,15 +33,15 @@ int main()
         status1 = ws_client.GetStatus();
     }
     
-    std::cout << "Connect successfully!" << std::endl;
+    LOG_INFO("Connect successfully!");
 
-    std::cout << "Send message [Hello]" << std::endl;
+    LOG_INFO("Send message [Hello]");
     ws_client.Send("Hello");
 
-    std::cout << "Send ping" << std::endl;
+    LOG_INFO("Send ping");
     ws_client.Ping();
 
-    std::cout << "Close conneciton" << std::endl;
+    LOG_INFO("Close conneciton");
     int close_code = websocketpp::close::status::normal;
     std::string reason = "User Close";
     ws_client.Close(close_code, reason);

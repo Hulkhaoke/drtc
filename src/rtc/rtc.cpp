@@ -2,6 +2,7 @@
 #include "ice_agent.h"
 #include "ws_client.h"
 #include "peer_connection.h"
+#include "log.h"
 
 #include <iostream>
 
@@ -13,7 +14,7 @@ public:
 
     void OnReceiveMessage(const std::string &msg)
     {
-        std::cout << "Receive msg: " << msg << std::endl;
+        LOG_INFO("Receive msg: {}", msg);
     }
 };
 
@@ -41,7 +42,7 @@ int CreatePeerConnection(const char *uri)
     {
     } while ("Open" != peer_connection->GetStatus());
 
-    printf("Ws status:%s\n", peer_connection->GetStatus().c_str());
+    LOG_INFO("Ws status: {}", peer_connection->GetStatus().c_str());
     
     peer_connection->CreateOffer();
 

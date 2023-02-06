@@ -1,4 +1,5 @@
 #include "ws_client.h"
+#include "log.h"
 
 WsClient::WsClient()
 {
@@ -10,5 +11,5 @@ WsClient::~WsClient()
 
 void WsClient::OnReceiveMessage(const std::string &msg)
 {
-    std::cout << "Receive msg: " << msg << std::endl;
+    LOG_INFO("Receive msg: {}", msg);
 }

@@ -1,4 +1,5 @@
 #include "signal_server.h"
+#include "log.h"
 #include <nlohmann/json.hpp>
 
 using nlohmann::json;
@@ -41,13 +42,13 @@ SignalServer::~SignalServer()
 bool SignalServer::on_open(websocketpp::connection_hdl hdl)
 {
     connections_[hdl] = connection_id_;
-    std::cout << "New connection [" << connection_id_++ << "] established" << std::endl;
+    LOG_INFO("New connection [{}] established", connection_id_++);
     return true;
 }
 
 bool SignalServer::on_close(websocketpp::connection_hdl hdl)
 {
-    std::cout << "Connection [" << connections_[hdl] << "] closed" << std::endl;
+    LOG_INFO("Connection [{}] closed", connection_id_++);
     connections_.erase(hdl);
     return true;
 }
@@ -55,14 +56,14 @@ bool SignalServer::on_close(websocketpp::connection_hdl hdl)
 bool SignalServer::on_ping(websocketpp::connection_hdl hdl, std::string s)
 {
     /* Do something */
-    std::cout << "Receive ping" << std::endl;
+    LOG_INFO("Receive ping");
     return true;
 }
 
 bool SignalServer::on_pong(websocketpp::connection_hdl hdl, std::string s)
 {
     /* Do something */
-    std::cout << "pong" << std::endl;
+    LOG_INFO("pong");
     return true;
 }
 
@@ -81,7 +82,7 @@ void SignalServer::run()
 void SignalServer::on_message(websocketpp::connection_hdl hdl, server::message_ptr msg)
 {
     std::string payload = msg->get_payload();
-    std::cout << "Receive message: [ " << payload << " ]" << std::endl;
+    LOG_INFO("Receive message: [{}]", payload);
     auto j = json::parse(payload);
 
     std::string type = j["type"];
@@ -93,8 +94,8 @@ void SignalServer::on_message(websocketpp::connection_hdl hdl, server::message_p
     
     // std::string sdp = j["sdp"];
 
-    // std::cout << "Message type: " << type << std::endl;
-    // std::cout << "Message body: " << sdp << std::endl;
+    // LOG_INFO("Message type: {}", type);
+    // LOG_INFO("Message body: {}", sdp);
 
     // server_.send(hdl, msg->get_payload(), msg->get_opcode());
 }

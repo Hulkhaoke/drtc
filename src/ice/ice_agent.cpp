@@ -1,5 +1,5 @@
 #include "ice_agent.h"
-
+#include "log.h"
 #include <iostream>
 #include <string.h>
 
@@ -49,29 +49,29 @@ char *IceAgent::GenerateLocalSdp()
 {
 	if(nullptr == agent_)
 	{
-		printf("agent_ is nullptr\n");
+		LOG_INFO("agent_ is nullptr");
 		return nullptr;
 	}
 	
-	printf("GenerateLocalSdp\n");
+	LOG_INFO("GenerateLocalSdp");
 	juice_get_local_description(agent_, local_sdp_, JUICE_MAX_SDP_STRING_LEN);
-	printf("Local description :\n%s\n", local_sdp_);
+	LOG_INFO("Local description:\n{}", local_sdp_);
 
 	return local_sdp_;
 }
 
 int IceAgent::SetRemoteSdp(const char *remote_sdp)
 {
-	printf("SetRemoteSdp\n");
+	LOG_INFO("SetRemoteSdp");
 	juice_set_remote_description(agent_, remote_sdp);
-	printf("Remote description :\n%s\n", remote_sdp);
+	LOG_INFO("Remote description:\n{}", remote_sdp);
 
 	return 0;
 }
 
 int IceAgent::GatherCandidates()
 {
-	printf("GatherCandidates\n");
+	LOG_INFO("GatherCandidates");
 	juice_gather_candidates(agent_);
 
 	return 0;
@@ -94,8 +94,8 @@ bool IceAgent::GetSelectedCandidates()
 		(juice_get_selected_candidates(agent_, local, JUICE_MAX_CANDIDATE_SDP_STRING_LEN, remote,
 									   JUICE_MAX_CANDIDATE_SDP_STRING_LEN) == 0))
 	{
-		printf("Local candidate  1: %s\n", local);
-		printf("Remote candidate 1: %s\n", remote);
+		LOG_INFO("Local candidate  1: {}", local);
+		LOG_INFO("Remote candidate 1: {}", remote);
 		if ((!strstr(local, "typ host") && !strstr(local, "typ prflx")) ||
 			(!strstr(remote, "typ host") && !strstr(remote, "typ prflx")))
 			success = false; // local connection should be possible
@@ -113,8 +113,8 @@ bool IceAgent::GetSelectedAddresses()
 	if (success &= (juice_get_selected_addresses(agent_, localAddr, JUICE_MAX_ADDRESS_STRING_LEN,
 												 remoteAddr, JUICE_MAX_ADDRESS_STRING_LEN) == 0))
 	{
-		printf("Local address  1: %s\n", localAddr);
-		printf("Remote address 1: %s\n", remoteAddr);
+		LOG_INFO("Local address  1: {}", localAddr);
+		LOG_INFO("Remote address 1: {}", remoteAddr);
 	}
 
 	return success;

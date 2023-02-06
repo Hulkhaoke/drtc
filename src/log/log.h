@@ -12,79 +12,120 @@
 #include <chrono>
 #include <string>
 #include <iostream>
+#include <sstream>
 #include <iomanip>
 
 using namespace std::chrono;
 
 #define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_INFO
 
+// SPDLOG_TRACE(...)
 // SPDLOG_DEBUG(...)
 // SPDLOG_INFO(...)
 // SPDLOG_WARN(...)
 // SPDLOG_ERROR(...)
 // SPDLOG_CRITICAL(...)
 
+#ifdef SIGNAL_LOGGER
+constexpr auto LOGGER_NAME = "siganl";
+#else
 constexpr auto LOGGER_NAME = "rtc";
-constexpr auto LOGGER_SAVE_PATH = "logs/rtc-log";
-#define SPDLOG_INFO_FILE(...)                                                                             \
-    auto logger0 = spdlog::get(LOGGER_NAME);                                                              \
-    if (nullptr == logger0)                                                                               \
+#endif
+
+#define LOG_INFO(...)                                                                                     \
+    if (nullptr == spdlog::get(LOGGER_NAME))                                                              \
     {                                                                                                     \
         auto now = std::chrono::system_clock::now() +  std::chrono::hours(8);                             \
         auto timet = std::chrono::system_clock::to_time_t(now);                                           \
         auto localTime = *std::gmtime(&timet);                                                            \
         std::stringstream ss;                                                                             \
-        std::string str;                                                                                  \
-        ss << std::put_time(&localTime, "%Y%m%d-%H%M%S");                                                 \
-        ss >> str;                                                                                        \
-        std::cout << str << std::endl;                                                                    \
-        std::string filename = "logs/rtc-log-" + str + ".log";                                            \
+        std::string filename;                                                                             \
+        ss << LOGGER_NAME;                                                                                \
+        ss << std::put_time(&localTime, "-%Y%m%d-%H%M%S.log");                                            \
+        ss >> filename;                                                                                   \
+        std::string path = "logs/" + filename;                                                            \
         std::vector<spdlog::sink_ptr> sinks;                                                              \
         sinks.push_back(std::make_shared<spdlog::sinks::stdout_color_sink_mt>());                         \
-        sinks.push_back(std::make_shared<spdlog::sinks::rotating_file_sink_mt>(filename, 1048576*5, 3));  \
+        sinks.push_back(std::make_shared<spdlog::sinks::rotating_file_sink_mt>(path, 1048576*5, 3));      \
         auto combined_logger = std::make_shared<spdlog::logger>(LOGGER_NAME, begin(sinks), end(sinks));   \
         spdlog::register_logger(combined_logger);                                                         \
         SPDLOG_LOGGER_INFO(combined_logger, __VA_ARGS__);                                                 \
     }                                                                                                     \
     else                                                                                                  \
     {                                                                                                     \
-        SPDLOG_LOGGER_INFO(logger0, __VA_ARGS__);                                                         \
+        SPDLOG_LOGGER_INFO(spdlog::get(LOGGER_NAME), __VA_ARGS__);                                        \
     }
 
-#define SPDLOG_WARN_FILE(...)                                                                             \
-    auto logger1 = spdlog::get(LOGGER_NAME);                                                              \
-    if (nullptr == logger1)                                                                               \
+#define LOG_WARN(...)                                                                                     \
+    if (nullptr == spdlog::get(LOGGER_NAME))                                                              \
     {                                                                                                     \
-        auto rotating_logger = spdlog::rotating_logger_mt(LOGGER_NAME, LOGGER_SAVE_PATH, 1048576 * 5, 3); \
-        SPDLOG_LOGGER_WARN(rotating_logger, __VA_ARGS__);                                                 \
+        auto now = std::chrono::system_clock::now() +  std::chrono::hours(8);                             \
+        auto timet = std::chrono::system_clock::to_time_t(now);                                           \
+        auto localTime = *std::gmtime(&timet);                                                            \
+        std::stringstream ss;                                                                             \
+        std::string filename;                                                                             \
+        ss << LOGGER_NAME;                                                                                \
+        ss << std::put_time(&localTime, "-%Y%m%d-%H%M%S.log");                                            \
+        ss >> filename;                                                                                   \
+        std::string path = "logs/" + filename;                                                            \
+        std::vector<spdlog::sink_ptr> sinks;                                                              \
+        sinks.push_back(std::make_shared<spdlog::sinks::stdout_color_sink_mt>());                         \
+        sinks.push_back(std::make_shared<spdlog::sinks::rotating_file_sink_mt>(path, 1048576*5, 3));      \
+        auto combined_logger = std::make_shared<spdlog::logger>(LOGGER_NAME, begin(sinks), end(sinks));   \
+        spdlog::register_logger(combined_logger);                                                         \
+        SPDLOG_LOGGER_WARN(combined_logger, __VA_ARGS__);                                                 \
     }                                                                                                     \
     else                                                                                                  \
     {                                                                                                     \
-        SPDLOG_LOGGER_WARN(logger1, __VA_ARGS__);                                                         \
+        SPDLOG_LOGGER_WARN(spdlog::get(LOGGER_NAME), __VA_ARGS__);                                        \
     }
 
-#define SPDLOG_ERROR_FILE(...)                                                                            \
-    auto logger2 = spdlog::get(LOGGER_NAME);                                                              \
-    if (nullptr == logger2)                                                                               \
+#define LOG_ERROR(...)                                                                                    \
+    if (nullptr == spdlog::get(LOGGER_NAME))                                                              \
     {                                                                                                     \
-        auto rotating_logger = spdlog::rotating_logger_mt(LOGGER_NAME, LOGGER_SAVE_PATH, 1048576 * 5, 3); \
-        SPDLOG_LOGGER_ERROR(rotating_logger, __VA_ARGS__);                                                \
+        auto now = std::chrono::system_clock::now() +  std::chrono::hours(8);                             \
+        auto timet = std::chrono::system_clock::to_time_t(now);                                           \
+        auto localTime = *std::gmtime(&timet);                                                            \
+        std::stringstream ss;                                                                             \
+        std::string filename;                                                                             \
+        ss << LOGGER_NAME;                                                                                \
+        ss << std::put_time(&localTime, "-%Y%m%d-%H%M%S.log");                                            \
+        ss >> filename;                                                                                   \
+        std::string path = "logs/" + filename;                                                            \
+        std::vector<spdlog::sink_ptr> sinks;                                                              \
+        sinks.push_back(std::make_shared<spdlog::sinks::stdout_color_sink_mt>());                         \
+        sinks.push_back(std::make_shared<spdlog::sinks::rotating_file_sink_mt>(path, 1048576*5, 3));      \
+        auto combined_logger = std::make_shared<spdlog::logger>(LOGGER_NAME, begin(sinks), end(sinks));   \
+        spdlog::register_logger(combined_logger);                                                         \
+        SPDLOG_LOGGER_ERROR(combined_logger, __VA_ARGS__);                                                \
     }                                                                                                     \
     else                                                                                                  \
     {                                                                                                     \
-        SPDLOG_LOGGER_ERROR(logger2, __VA_ARGS__);                                                        \
+        SPDLOG_LOGGER_ERROR(spdlog::get(LOGGER_NAME), __VA_ARGS__);                                       \
     }
 
-#define SPDLOG_CRITICAL_FILE(...)                                                                         \
-    auto logger3 = spdlog::get(LOGGER_NAME);                                                              \
-    if (nullptr == logger3)                                                                               \
+#define LOG_FATAL(...)                                                                                    \
+    if (nullptr == spdlog::get(LOGGER_NAME))                                                              \
     {                                                                                                     \
-        auto rotating_logger = spdlog::rotating_logger_mt(LOGGER_NAME, LOGGER_SAVE_PATH, 1048576 * 5, 3); \
-        SPDLOG_LOGGER_CRITICAL(rotating_logger, __VA_ARGS__);                                             \
+        auto now = std::chrono::system_clock::now() +  std::chrono::hours(8);                             \
+        auto timet = std::chrono::system_clock::to_time_t(now);                                           \
+        auto localTime = *std::gmtime(&timet);                                                            \
+        std::stringstream ss;                                                                             \
+        std::string filename;                                                                             \
+        ss << LOGGER_NAME;                                                                                \
+        ss << std::put_time(&localTime, "-%Y%m%d-%H%M%S.log");                                            \
+        ss >> filename;                                                                                   \
+        std::string path = "logs/" + filename;                                                            \
+        std::vector<spdlog::sink_ptr> sinks;                                                              \
+        sinks.push_back(std::make_shared<spdlog::sinks::stdout_color_sink_mt>());                         \
+        sinks.push_back(std::make_shared<spdlog::sinks::rotating_file_sink_mt>(path, 1048576*5, 3));      \
+        auto combined_logger = std::make_shared<spdlog::logger>(LOGGER_NAME, begin(sinks), end(sinks));   \
+        spdlog::register_logger(combined_logger);                                                         \
+        SPDLOG_LOGGER_CRITICAL(combined_logger, __VA_ARGS__);                                             \
     }                                                                                                     \
     else                                                                                                  \
     {                                                                                                     \
-        SPDLOG_LOGGER_CRITICAL(logger3, __VA_ARGS__);                                                     \
+        SPDLOG_LOGGER_CRITICAL(spdlog::get(LOGGER_NAME), __VA_ARGS__);                                    \
     }
 
 #endif

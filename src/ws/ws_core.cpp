@@ -1,4 +1,5 @@
 #include "ws_client.h"
+#include "log.h"
 
 #include <cstdlib>
 #include <iostream>
@@ -29,7 +30,7 @@ WsCore::~WsCore()
     m_endpoint_.close(connection_handle_, websocketpp::close::status::going_away, "", ec);
     if (ec)
     {
-        std::cout << "> Error closing connection " << ec.message() << std::endl;
+        LOG_INFO("> Error closing connection {}", ec.message());
     }
 
     m_thread_->join();
@@ -45,7 +46,7 @@ int WsCore::Connect(std::string const &uri)
 
     if (ec)
     {
-        std::cout << "> Connect initialization error: " << ec.message() << std::endl;
+        LOG_INFO("> Connect initialization error: {}", ec.message());
         return -1;
     }
 
@@ -104,7 +105,7 @@ void WsCore::Close(websocketpp::close::status::value code, std::string reason)
     m_endpoint_.close(connection_handle_, code, reason, ec);
     if (ec)
     {
-        std::cout << "> Error initiating close: " << ec.message() << std::endl;
+        LOG_INFO("> Error initiating close: {}", ec.message());
     }
 }
 
@@ -115,7 +116,7 @@ void WsCore::Send(std::string message)
     m_endpoint_.send(connection_handle_, message, websocketpp::frame::opcode::text, ec);
     if (ec)
     {
-        std::cout << "> Error sending message: " << ec.message() << std::endl;
+        LOG_INFO("> Error sending message: {}", ec.message());
         return;
     }
 }
@@ -129,7 +130,7 @@ void WsCore::Ping()
     m_endpoint_.ping(connection_handle_, message, ec);
     if (ec)
     {
-        std::cout << "> Error sending ping " << std::endl;
+        LOG_INFO("> Error sending ping");
         return;
     }
 }
